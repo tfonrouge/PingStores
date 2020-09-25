@@ -37,10 +37,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val funRefresh = {
+            adapter.connectTimeout = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("connectTimeout", "10")!!.toInt()
+            model.getStoreItems(getServerCredentials())
+        }
+
         swipeRefreshLayout.setOnRefreshListener {
             if (!swipeRefreshing) {
                 swipeRefreshing = true
-                model.getStoreItems(getServerCredentials())
+                funRefresh()
                 swipeRefreshing = false
                 swipeRefreshLayout.isRefreshing = false
             }
@@ -52,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         adapter = RecyclerAdapter(storeList)
         recyclerView.adapter = adapter
 
-        model.getStoreItems(getServerCredentials()).observe(this, {
+        funRefresh().observe(this, {
             adapter.addDataset(it)
         })
 

@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/prefs_connectivity">
 
@@ -8,10 +9,20 @@
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
+            app:defaultValue="22"
             app:key="port"
             app:title="@string/prefs_port"
-            app:defaultValue="22"
             app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="10"
+            app:key="connectTimeout"
+            app:title="Server Connect Timeout"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Credentials">
 
         <EditTextPreference
             app:key="username"
@@ -19,9 +30,9 @@
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
+            app:dialogTitle="Set Password"
             app:key="password"
             app:title="@string/prefs_password"
-            app:dialogTitle="Set Password"
             app:useSimpleSummaryProvider="false" />
 
     </PreferenceCategory>

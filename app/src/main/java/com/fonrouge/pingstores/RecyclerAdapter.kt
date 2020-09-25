@@ -17,12 +17,14 @@ val adapterScope = CoroutineScope(Dispatchers.Default)
 class RecyclerAdapter(private val storeItems: ArrayList<StoreItem>) :
     RecyclerView.Adapter<StoreItemHolder>() {
 
+    var connectTimeout = 15
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): StoreItemHolder {
         val inflatedView = parent.inflate(R.layout.recyclerview_item_row, false)
-        return StoreItemHolder(inflatedView)
+        return StoreItemHolder(inflatedView, connectTimeout)
     }
 
     override fun onBindViewHolder(holder: StoreItemHolder, position: Int) {
@@ -38,7 +40,10 @@ class RecyclerAdapter(private val storeItems: ArrayList<StoreItem>) :
     }
 }
 
-class StoreItemHolder(private val view: View) : RecyclerView.ViewHolder(view),
+class StoreItemHolder(
+    private val view: View,
+    private val connectTimeout: Int,
+) : RecyclerView.ViewHolder(view),
     View.OnClickListener {
 
     private var storeItem: StoreItem? = null
@@ -60,7 +65,8 @@ class StoreItemHolder(private val view: View) : RecyclerView.ViewHolder(view),
         this.storeItem = storeItem
         view.hostName.text = storeItem.hostname
         view.port.text = storeItem.port.toString()
-        view.imageAvailable.visibility = View.GONE
+        view.imageAvailable.setImageResource(R.drawable.ic_hourglass_empty_24px)
+        view.millis.text = ""
 
         adapterScope.launch(Dispatchers.Default) {
             val connection: Connection?
@@ -69,7 +75,8 @@ class StoreItemHolder(private val view: View) : RecyclerView.ViewHolder(view),
                     storeItem.hostname,
                     storeItem.port,
                     storeItem.database,
-                    storeItem.password
+                    storeItem.password,
+                    connectTimeout
                 )
             }
             if (connection != null) {
@@ -80,13 +87,13 @@ class StoreItemHolder(private val view: View) : RecyclerView.ViewHolder(view),
                     statement = connection.createStatement()
                     resultSet = statement.executeQuery("SELECT TOP 1 Articulo FROM Articulos")
                     isAlive = resultSet.next()
+                    resultSet.close()
+                    statement.connection.close()
                 }
                 adapterScope.launch(Dispatchers.Main) {
                     view.imageAvailable.visibility = View.VISIBLE
-                    view.millis.text = "$time"
-                    view.imageAvailable.setImageResource(R.drawable.ic_check_24px)
-                    resultSet.close()
-                    statement.connection.close()
+                    view.millis.text = String.format("%d ms", time)
+                    view.imageAvailable.setImageResource(if (isAlive) R.drawable.ic_check_24px else R.drawable.ic_error_outline_24px)
                 }
             } else {
                 adapterScope.launch(Dispatchers.Main) {

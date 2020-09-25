@@ -32,11 +32,9 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            // Find the password EditText
-            // Find the password EditText
             val etpPassword: EditTextPreference? = preferenceManager.findPreference("password")
 
-            etpPassword?.setOnBindEditTextListener(EditTextPreference.OnBindEditTextListener { editText -> // Set keyboard layout and some behaviours of the field
+            etpPassword?.setOnBindEditTextListener { editText -> // Set keyboard layout and some behaviours of the field
                 editText.inputType =
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
@@ -55,9 +53,7 @@ class SettingsActivity : AppCompatActivity() {
 
                 // Replace -> android:maxLength="99"
                 editText.filters = arrayOf<InputFilter>(LengthFilter(99))
-            })
+            }
         }
-
-
     }
 }
