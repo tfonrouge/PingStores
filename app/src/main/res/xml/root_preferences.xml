@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/prefs_connectivity">
+
+        <EditTextPreference
+            app:key="hostname"
+            app:title="@string/prefs_hostname"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="port"
+            app:title="@string/prefs_port"
+            app:defaultValue="22"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="username"
+            app:title="@string/prefs_username"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="password"
+            app:title="@string/prefs_password"
+            app:dialogTitle="Set Password"
+            app:useSimpleSummaryProvider="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

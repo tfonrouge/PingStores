@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">PingStores</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Ping DM Stores</string>
+    <string name="nav_header_subtitle">by fonrouge.tech</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="hostname">Hostname:</string>
+    <string name="port">Port:</string>
+    <string name="available">Available</string>
+    <string name="millis">ms</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="prefs_connectivity">Connectivity</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="prefs_hostname">Server hostname</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="prefs_username">Username</string>
+    <string name="prefs_password">Password</string>
+    <string name="prefs_port">Port</string>
+</resources>
